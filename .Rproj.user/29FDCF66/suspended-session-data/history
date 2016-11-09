@@ -1,0 +1,512 @@
+names(links[3])
+name(links[3])
+names(links[3])
+links.test = links
+names(links.test[3]) = cityId[3]
+names(links.test[3]) = cityIds[3]
+names(links.test[3])
+links.test[3] %>% class
+links.test[3] %>% names()
+links.test[[3]] %>% names()
+links.test[[3]]
+links.test[[3]] %>% class
+getHotelLinksByPage("https://tripadvisor.ru/Hotels-g298536-oa0", cityIds[1])
+getHotelLinksByPage("https://tripadvisor.ru/Hotels-g298536-oa0", cityIds[1]) %>% class()
+getHotelLinksByPage("https://tripadvisor.ru/Hotels-g298536-oa0", cityIds[1]) %>% as.list()
+?setwd
+getwd()
+require(functional)
+install.packages("functional")
+require(functional)
+Curry(getHotelLinksByPage(), cityIds[1])
+Curry(getHotelLinksByPage(), cityId = cityIds[1])("https://tripadvisor.ru/Hotels-g298536-oa0")
+Curry(getHotelLinksByPage(), cityIds[1])("https://tripadvisor.ru/Hotels-g298536-oa0")
+Curry(getHotelLinksByPage(), cityIds[1])()
+x <- Curry(getHotelLinksByPage(), cityIds[1])
+x("https://tripadvisor.ru/Hotels-g298536-oa0")
+x
+body(x)
+x <- Curry(getHotelLinksByPage, cityIds[1])
+body(x)
+x("https://tripadvisor.ru/Hotels-g298536-oa0")
+x <- Curry(`*`, 2)
+x(2)
+x(4)
+x <- Curry(getHotelLinksByPage, cityId = cityIds[1])
+x
+x("https://tripadvisor.ru/Hotels-g298536-oa0")
+car <- function(list) list[[1]]
+cdr <- function(list) list[2:length(list)]
+cadr <- Compose(cdr, car)
+cadr
+cadr(c(1,2,3,4))
+cadr(c(1,2,3,4,5))
+car <- function(list) list[[2]]
+cadr <- Compose(cdr, car)
+cadr(c(1,2,3,4,5))
+cadr(c(1,2,3,4))
+rm(cadr, car, cdr)
+rm(x)
+plusFive = function(x) x + 5
+multTwo = function(x) x * 2
+Compose(plusFive, multTwo)
+Compose(plusFive, multTwo)(2)
+rm(plusFive, multTwo)
+getAllHotelLinks <- function(cityId) {
+this.getHotelListLinks <- Curry(getHotelListLinks, cityId = cityId)
+this.getHotelLinksByPage <- Curry(getHotelLinksByPage, cityId = cityId)
+outputFun = Compose(totalOffset, this.getHotelListLinks, this.getHotelLinksByPage)
+return(outputFun(cityId))
+}
+getAllHotelLinks(cityIds[3])
+system.time(getAllHotelLinks(cityIds[3]))
+system.time(getAllHotelLinks(cityIds[3]))
+system.time(getAllHotelLinks(cityIds[3]))
+system.time(getAllHotelLinks(cityIds[3]))
+system.time(getAllHotelLinks(cityIds[3])) %>% str
+system.time(getAllHotelLinks(cityIds[3]))[3]
+system.time(getAllHotelLinks(cityIds[3]))[3]
+lapply(cityIds[3], function(cityId){
+totalOffset(cityId) %>%
+getHotelListLinks(cityId) %>%
+lapply(function(url) getHotelLinksByPage(url, cityId)) %>%
+unlist()
+})
+system.time(lapply(cityIds[3], function(cityId){
+totalOffset(cityId) %>%
+getHotelListLinks(cityId) %>%
+lapply(function(url) getHotelLinksByPage(url, cityId)) %>%
+unlist()
+}))
+system.time(lapply(cityIds[3], function(cityId){
+totalOffset(cityId) %>%
+getHotelListLinks(cityId) %>%
+lapply(function(url) getHotelLinksByPage(url, cityId)) %>%
+unlist()
+}))
+system.time(lapply(cityIds[3], function(cityId){
+totalOffset(cityId) %>%
+getHotelListLinks(cityId) %>%
+lapply(function(url) getHotelLinksByPage(url, cityId)) %>%
+unlist()
+}))
+system.time(lapply(cityIds[3], function(cityId){
+totalOffset(cityId) %>%
+getHotelListLinks(cityId) %>%
+lapply(function(url) getHotelLinksByPage(url, cityId)) %>%
+unlist()
+}))
+system.time(lapply(cityIds[3], function(cityId){
+totalOffset(cityId) %>%
+getHotelListLinks(cityId) %>%
+lapply(function(url) getHotelLinksByPage(url, cityId)) %>%
+unlist()
+}))
+source('~/russia-clust/tripadvisor-methods.R')
+getAllHotelLinks <- function(cityId) {
+this.getHotelListLinks <- Curry(getHotelListLinks, cityId = cityId)
+this.getHotelLinksByPage <- Curry(getHotelLinksByPage, cityId = cityId)
+outputFun = Compose(totalOffset, this.getHotelListLinks, lapply(this.getHotelLinksByPage(url)))
+return(outputFun(cityId))
+}
+getAllHotelLinks <- function(cityId) {
+this.getHotelListLinks <- Curry(getHotelListLinks, cityId = cityId)
+this.getHotelLinksByPage <- Curry(getHotelLinksByPage, cityId = cityId)
+outputFun = Compose(totalOffset, this.getHotelListLinks, lapply(this.getHotelLinksByPage(url)), unlist)
+return(outputFun(cityId))
+}
+getAllHotelLinks(cityIds[1])
+getAllHotelLinks <- function(cityId) {
+this.getHotelListLinks <- Curry(getHotelListLinks, cityId = cityId)
+this.getHotelLinksByPage <- Curry(getHotelLinksByPage, cityId = cityId)
+outputFun = Compose(totalOffset, this.getHotelListLinks, lapply(function(url) this.getHotelLinksByPage(url)), unlist)
+return(outputFun(cityId))
+}
+getAllHotelLinks(cityIds[1])
+getAllHotelLinks <- function(cityId) {
+this.getHotelListLinks <- Curry(getHotelListLinks, cityId = cityId)
+this.getHotelLinksByPage <- Curry(getHotelLinksByPage, cityId = cityId)
+outputFun = Compose(totalOffset, this.getHotelListLinks, this.getHotelLinksByPage)
+return(outputFun(cityId))
+}
+getAllHotelLinks(cityIds[1])
+getAllHotelLinks(cityIds[1])
+source('~/russia-clust/tripadvisor-methods.R')
+rm(getAllHotelLinks())
+rm(getAllHotelLinks
+)
+??xpath
+links[[1]] %>% names
+lapply(setNames(cityIds[3],cityIds[3]), function(cityId){
+totalOffset(cityId) %>%
+getHotelListLinks(cityId) %>%
+lapply(function(url) getHotelLinksByPage(url, cityId)) %>%
+unlist()
+})
+links = lapply(setNames(cityIds, cityIds), function(cityId){ #setNames is used to have named list; see http://stackoverflow.com/a/18520422/3818255
+totalOffset(cityId) %>%
+getHotelListLinks(cityId) %>%
+lapply(function(url) getHotelLinksByPage(url, cityId)) %>%
+unlist()
+})
+rm(links.test)
+links$`298536`
+links$`298536`[1]
+links$`298536`[1] %>% names()
+links$`298536`
+source('~/russia-clust/tripadvisor-methods.R')
+source('~/russia-clust/tripadvisor-methods.R')
+?co
+?cor
+cor
+?force
+?assertthat
+??assertthat
+f = function(x, y) {
+exists(y)
+}
+f(1)
+rm(f)
+urlConstructor <- function(cityId, hotelId, offset) {
+if (missing(hotelId) {
+if (missing(offset)) {
+return(paste0("https://tripadvisor.ru/Hotels-g", cityId))
+} else {
+return(paste0("https://tripadvisor.ru/Hotels-g", cityId, "-oa", as.character(offset)))
+}
+} else {
+if (missing(offset)) {
+return(paste0("http://tripadvisor.ru/Hotel_Review-g", cityId, "-d", hotelId))
+} else {
+return (paste0("http://tripadvisor.ru/Hotel_Review-g", cityId, "-d", hotelId, "-or", offset))
+}
+}
+}
+urlConstructor <- function(cityId, hotelId, offset) {
+if (missing(hotelId)) {
+if (missing(offset)) {
+return(paste0("https://tripadvisor.ru/Hotels-g", cityId))
+} else {
+return(paste0("https://tripadvisor.ru/Hotels-g", cityId, "-oa", as.character(offset)))
+}
+} else {
+if (missing(offset)) {
+return(paste0("http://tripadvisor.ru/Hotel_Review-g", cityId, "-d", hotelId))
+} else {
+return (paste0("http://tripadvisor.ru/Hotel_Review-g", cityId, "-d", hotelId, "-or", as.character(offset)))
+}
+}
+}
+urlConstructor(1, 20, 10)
+urlConstructor(1, 10)
+urlConstructor(1, offset = 10)
+urlConstructor(10, offset = 10)
+urlConstructor(10, 20, offset = 10)
+urlConstructor(10, 20)
+source('~/russia-clust/tripadvisor-methods.R')
+urlConstructor <- function(cityId, hotelId, offset) {
+if (missing(hotelId)) {
+if (missing(offset)) {
+return(paste0("https://tripadvisor.ru/Hotels-g", cityId))
+} else {
+return(paste0("https://tripadvisor.ru/Hotels-g", cityId, "-oa", as.character(offset)))
+}
+} else {
+if (missing(offset)) {
+return(paste0("http://tripadvisor.ru/Hotel_Review-g", cityId, "-d", hotelId))
+} else {
+return (paste0("http://tripadvisor.ru/Hotel_Review-g", cityId, "-d", hotelId, "-or", offset))
+}
+}
+}
+source('~/russia-clust/tripadvisor-methods.R')
+links[[1]] %>% names
+links[1] %>% names
+lnks[1]
+links[1]
+urlConstructor(names(links[1]), names(links[[1]][1]), offset = 10)
+urlConstructor(names(links[1]), names(links[[1]][1]), offset = 20)
+?switch
+?ifelse
+?||
+?`||`
+urlConstructorUpd <- function(cityId, hotelId, offset) {
+if (missing(offset)) {
+if (missing(hoteliId)) {
+type <- "c"
+} else {
+type <- "h"
+}
+} else {
+if (missing(hoteliId)) {
+type <- "co"
+} else {
+type <- "ho"
+}
+}
+return(switch(
+type,
+c = paste0("https://tripadvisor.ru/Hotels-g", cityId),
+h = paste0("http://tripadvisor.ru/Hotel_Review-g", cityId, "-d", hotelId),
+co = paste0("https://tripadvisor.ru/Hotels-g", cityId, "-oa", as.character(offset)),
+ho = paste0("http://tripadvisor.ru/Hotel_Review-g", cityId, "-d", hotelId, "-or", offset))
+)
+}
+require(microbenchmark)
+microbenchmark(urlConstructor(cityId = 1, hotelId = 1, offset = 1), urlConstructorUpd(cityId = 1, hotelId = 1, offset = 1))
+urlConstructorUpd <- function(cityId, hotelId, offset) {
+if (missing(offset)) {
+if (missing(hoteliId)) {
+type <- "c"
+} else {
+type <- "h"
+}
+} else {
+if (missing(hotelId)) {
+type <- "co"
+} else {
+type <- "ho"
+}
+}
+return(switch(
+type,
+c = paste0("https://tripadvisor.ru/Hotels-g", cityId),
+h = paste0("http://tripadvisor.ru/Hotel_Review-g", cityId, "-d", hotelId),
+co = paste0("https://tripadvisor.ru/Hotels-g", cityId, "-oa", as.character(offset)),
+ho = paste0("http://tripadvisor.ru/Hotel_Review-g", cityId, "-d", hotelId, "-or", offset))
+)
+}
+microbenchmark(urlConstructor(cityId = 1, hotelId = 1, offset = 1), urlConstructorUpd(cityId = 1, hotelId = 1, offset = 1))
+getTotalOffset <- function(cityId, hotelId) {
+if (missing (hotelId)) {
+#We check last pagination number on the page for "data-offset" property
+offset <- urlConstructor(cityId = cityId) %>%
+getNodesAttribute(xpath = "//*[@class = 'pageNum last taLnk']", attribute = "data-offset") %>%
+as.numeric()
+#If there is no pagination, which is possible, return 30
+return(
+ifelse(length(offset) > 0, offset, 30)
+)
+} else {
+offset <- urlConstructor(cityId, hotelId) %>%
+getNodesAttribute(xpath = "(//*[@class = 'pageNumbers']//a)[last()]", attribute = "data-offset") %>%
+as.numeric()
+return(
+ifelse(length(offset) > 0, offset, 10)
+)
+}
+}
+getTotalOffset(298536)
+getTotalOffset(298536, 6158220)
+source('~/russia-clust/tripadvisor-methods.R')
+source('~/russia-clust/tripadvisor-methods.R')
+source('~/russia-clust/tripadvisor-methods.R')
+step = 10
+offset = 340
+Reduce(function(x, y) x + y + step,
+vector(mode = "numeric", length = offset / step),
+accumulate = T,
+init = 0)
+rm(step, offset)
+getOffsetLinks <- function(offset, cityId, hotelId = NULL) {
+step = ifelse(is.null(hotelId), 30, 10)
+Reduce(function(x, y) x + y + step,
+vector(mode = "numeric", length = offset / step),
+accumulate = T,
+init = 0) %>%
+#Afterwards we combine the vector of offsets into final urls
+sapply(function(x) {
+urlConstructor(cityId = cityId, hotelId = hotelId, offset = offset)
+})
+}
+getOffsetLinks(340, 200, 987654)
+debug(getOffsetLinks)
+getOffsetLinks(340, 200, 987654)
+getOffsetLinks(340, 200, 987654)
+getOffsetLinks <- function(offset, cityId, hotelId = NULL) {
+step = ifelse(is.null(hotelId), 30, 10)
+Reduce(function(x, y) x + y + step,
+vector(mode = "numeric", length = offset / step),
+accumulate = T,
+init = 0) %>%
+#Afterwards we combine the vector of offsets into final urls
+sapply(function(x) {
+urlConstructor(cityId = cityId, hotelId = hotelId, offset = x)
+})
+}
+undebug(getOffsetLinks)
+getOffsetLinks(340, 200, 987654)
+system("phantomjs a.js")
+system("phantomjs a.js")
+system("phantomjs a.js")
+system("phantomjs a.js")
+system("phantomjs a.js")
+system("phantomjs b.js")
+system("phantomjs b.js")
+require(stringr)
+string = "Кота заводят, чтобы кот
+Был маяком во тьме забот —
+Ты, например, забыл ключи,
+Сын в школе двойку получил,
+Прогнило у авто нутро,
+Украли кошелек в метро,
+А на работе вновь аврал,
+Начальник матом наорал
+И из-за кризиса в стране
+Зарплату сократил вдвойне.
+И ты пришел домой, а там
+Припал больной душой к котам!
+Кот нужен, чтобы вдохновлял
+И биополем исцелял,
+Мурлыкал громко под рукой,
+Грел бок, гнал мышь, дарил покой,
+Чтоб ты, кота погладив раз,
+Лучился счастьем целый час!
+На деле кот в ночи орет,
+И будит, прыгнув на живот.
+Прощайте, шторы и диван,
+И тапки, если кот поган!
+А если кот ваш волосат
+То волосато все подряд!
+Чуть отвернись — с тарелки гад
+Всосет селедку и салат,
+И будет маяться потом
+Всенепременно животом.
+Дешевый корм — на почках крест,
+А дорогой корм кот не ест,
+А если ест, опять вопрос:
+То золотуха, то понос,
+То ожиренье, то тошнит,
+То блекнет шерсть, то хмурый вид.
+Порой, для пущей лепоты,
+В коте заводятся глисты,
+И из лотка, как штурмотряд
+С надеждой на тебя глядят!
+Иль гость погладит дорогой
+Кота немытою рукой,
+И даже если кот привит —
+Привет, лишай и энтерит!
+Привет, леченья маета
+Во все отверстия кота!
+А кот свиреп, когтист, зубаст,
+И жизнь без боя не отдаст!
+Когда приходит Новый Год
+Кот валит ель и дождик жрет
+И в лучшем случае потом
+Им развевает под хвостом,
+А если вам не повезет
+Совсем испортит Новый Год!
+(Ведь мало у кого мечта —
+Долбить могилу для кота).
+Все нитки, иглы и шнурки
+Закрыты крепко на замки,
+Но, как ни прячь их, все равно,
+Коту найти их суждено!
+На раскаленную плиту
+Никак нельзя не влезть коту,
+А то и прыгнуть прямо в суп,
+О стул с разбегу выбить зуб,
+С буфета рухнув, поломать
+Конечность или вашу мать!
+Короче. Если кот ваш вдруг
+Здоров сегодня и упруг,
+Не бил хрусталь, не драл пальто,
+Посрал чем надо и в лоток,
+Все остальное — суета!
+Погладь кота.
+ПОГЛАДЬ КОТА!"
+str_replace(string = string, pattern = "кот", replacement = "мыш")
+str_replace_all(string = string, pattern = "кот", replacement = "мыш")
+rm(string)
+ls()
+lsf.str()
+setdiff(ls(), lsf.str())
+!setdiff(ls(), lsf.str())
+union(ls(), lsf.str())
+setequal(ls(), lsf.str())
+intersect(ls(), lsf.str())
+rm(list = intersect(ls(), lsf.str()))
+source('~/russia-clust/tripadvisor-methods.R')
+rm(list = intersect(ls(), lsf.str()))
+Reduce(function(x, y) x + y + 30,
+vector(mode = "numeric", length = 330 / 30),
+accumulate = T,
+init = 0)
+seq(0, 330, 30)
+source('~/russia-clust/tripadvisor-methods.R')
+rnorm(100) %>% ecdf %>% plot
+rnorm(1000) %>% ecdf %>% plot
+rnorm(10000) %>% ecdf %>% plot
+rnorm(100000) %>% ecdf %>% plot
+rnorm(10000) %>% ecdf %>% plot
+rnorm(10000) %>% ecdf %>% plot
+rnorm(10000) %>% ecdf %>% plot
+rnorm(10000) %>% ecdf %>% plot
+rnorm(10000) %>% ecdf %>% plot
+rnorm(10000) %>% ecdf %>% plot
+rnorm(100) %>% ecdf %>% plot
+rnorm(500) %>% ecdf %>% plot
+rnorm(800) %>% ecdf %>% plot
+rnorm(999) %>% ecdf %>% plot
+rnorm(950) %>% ecdf %>% plot
+rnorm(960) %>% ecdf %>% plot
+rnorm(960) %>% ecdf
+rnorm(960) %>% ecdf %>% 0
+ecdf(rnorm(960))(0)
+ecdf(rnorm(960))(0)
+ecdf(rnorm(960))(10)
+ecdf(rnorm(960))(-10)
+ecdf(rnorm(960))(-10)
+ecdf(rnorm(960))(10)
+ecdf(rnorm(960))(4)
+ecdf(rnorm(960))(3.5)
+ecdf(rnorm(960))(3.5)
+ecdf(rnorm(960))(3.5)
+ecdf(rnorm(960))(3.5)
+ecdf(rnorm(960))(3.5)
+ecdf(rnorm(960))(3.5)
+ecdf(rnorm(960))(3.5)
+ecdf(rnorm(960))(3)
+ecdf(rnorm(960))(3)
+ecdf(rnorm(960))(3)
+ecdf(rnorm(960))(3)
+ecdf(rnorm(960))(3)
+source('~/russia-clust/tripadvisor-methods.R')
+system("phantomjs b.js")
+system("phantomjs b.js")
+system("phantomjs a.js")
+system("phantomjs a.js")
+system("phantomjs b.js")
+system("phantomjs b.js")
+?seq_along
+seq(stats::rnorm(20))
+seq(stats::rnorm(20))
+seq(rnorm(20))
+?rnorm
+rnorm(20)
+seq(rnorm(20))
+system("phantomjs newscript.js")
+system("phantomjs newscript.js")
+lapply(links, length)
+lapply(links, length) %>% sum
+lapply(links, length) %>% class
+sapply(links, length)
+sapply(links, length) %>% sum
+require(jsonlite)
+??rjson
+toJSON(links[[3]])
+links[[3]]
+links[3]
+links[2:3]
+links[2:3] %>% toJSON()
+writeLines(toJSON(links[2:3]), "links.json")
+writeLines("{name: "Misha", age: "20"}", "test.json")
+writeLines("{name: 'Misha', age: '20'}", "test.json")
+fromJSON(readLines("test.json"))
+writeLines("{'name': 'Misha', 'age': '20'}", "test.json")
+fromJSON(readLines("test.json"))
+writeLines('{"name": "Misha", "age": "20"}', "test.json")
+fromJSON(readLines("test.json"))
+fromJSON(readLines("test.json")) %>% class
+fromJSON(readLines("test.json")) %>% as.data.frame()
+writeLines(toJSON(links[2:3]), "links.json")

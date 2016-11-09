@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "source(\"~/russia-clust/tripadvisor-methods.R\")\n\ncityIds = c(298536, 298484, 298520, 298540, 298529, 298500, 298532, 1380981, 608960, 298515, 298525, 298521, 298535, 298516, 298530, \n            298527, 298539, 298496, 298518, 662362, 1956128, 798121, 298537, 798124)\n\n#Getting hotel links\nlinks = lapply(setNames(cityIds, cityIds), function(cityId){ #setNames is used to have named list; see http://stackoverflow.com/a/18520422/3818255\n  totalOffset(cityId) %>% \n    getHotelListLinks(cityId) %>% \n    lapply(function(url) getHotelLinksByPage(url, cityId)) %>%\n    unlist()\n})\n\n#how many hotels we fetched\nsapply(links, length) %>% sum\n\n#roadmap for following work:\n#1. Generate a list of all hotel review links with needed offsets of the look city[hotel[review-link-1, review-link-2, ...]]\n#2. Store it into a JSON\n#3. Run the Casper script with node so that it\n# 3.1 Loads JSON\n# 3.2 Opens each link\n# 3.3 Gets the reviews and reviewer origin and creates an object of the look {origin: review}\n# 3.4 If the origin lacks, ditches those elements\n# 3.5 Forms object of reviews so that it looks like {city: {origin: review}}\n# 3.6 Writes it into a JSON\n#4. Load JSON of reviews",
+    "created" : 1477943841664.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3759045620",
+    "id" : "2F08FA14",
+    "lastKnownWriteTime" : 1478643419,
+    "last_content_update" : 1478648564644,
+    "path" : "~/russia-clust/running-script.R",
+    "project_path" : "running-script.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
