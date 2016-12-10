@@ -1,4 +1,3 @@
-//http://code-epicenter.com/how-to-login-to-amazon-using-casperjs-working-example/
 var casper = require('casper').create({
     pageSettings: {
         loadImages: false,//The script is much faster when this field is set to false
@@ -7,7 +6,7 @@ var casper = require('casper').create({
     },
     verbose: true,
     viewportSize: {width: 1920, height: 1080},
-});
+}).selectXPath;
 var fs = require('fs');
 
 casper.start().thenOpen("https://www.tripadvisor.ru/Hotel_Review-g1956128-d6158220-Reviews-or50-Citrus_Hotel-Adler_Adler_District_Sochi_Greater_Sochi_Krasnodar_Krai_Southern_Di.html", function() {
@@ -16,7 +15,8 @@ casper.start().thenOpen("https://www.tripadvisor.ru/Hotel_Review-g1956128-d61582
 );
 
 casper.then(function(){
-  this.click('span.taLnk.moreLink');
+  this.click('span.taLnk.ulBlueLinks');
+  this.echo('Clicked!');
 });
 
 casper.then(function() {
@@ -29,13 +29,13 @@ casper.then(function() {
 });
 
 casper.then(function() {
-  if(this.exists('span.taLnk.moreLink')){
-    this.click('span.taLnk.moreLink');
+  if(this.exists('span.taLnk.ulBlueLinks')){
+    this.click('span.taLnk.ulBlueLinks');
   }
 });
 
 casper.then(function() {
-  this.waitForSelector('div.review.dyn_full_review.inlineReviewUpdate', function() {
+  this.waitForSelector('div.expandLink', function() {
     var listTexts = this.getElementsInfo('div.entry').map(function(obj) {
       return obj.text;
     });
@@ -47,8 +47,8 @@ casper.then(function() {
         return;
       }
     });
-    console.dir(vals);
-  });
+    console.dir(listTexts[1]);
+  }, 20000);
 });
 
 casper.run();
