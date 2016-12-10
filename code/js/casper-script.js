@@ -36,7 +36,7 @@ casper.then(function() {
 
 casper.then(function() {
   this.waitForSelector('div.expandLink', function() {
-    var listTexts = this.getElementsInfo('div.entry').map(function(obj) {
+    var listTexts = this.getElementsInfo('//*[@class="innerBubble"]/div[@class="wrap"]/div[@data-prwidget-name="common_html"]/div[@class="entry"]').map(function(obj) {
       return obj.text;
     });
     
