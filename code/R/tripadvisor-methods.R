@@ -1,6 +1,8 @@
 require(rvest)
 require(dplyr)
 require(functional)
+require(dplyr)
+require(rvest)
 
 #---------------------COMMON METHODS---------------------
 

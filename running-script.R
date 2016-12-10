@@ -1,12 +1,11 @@
-require(dplyr)
-source("~/russia-clust/tripadvisor-methods.R")
+source("~/russia-clust/code/R/tripadvisor-methods.R")
 
 cityIds = c(298536, 298484, 298520, 298540, 298529, 298500, 298532, 1380981, 608960, 298515, 298525, 298521, 298535, 298516, 298530, 
             298527, 298539, 298496, 298518, 662362, 1956128, 798121, 298537, 798124)
 
 #Getting hotel links
 links = lapply(setNames(cityIds, cityIds), function(cityId){ #setNames is used to have named list; see http://stackoverflow.com/a/18520422/3818255
-  totalOffset(cityId) %>% 
+  getTotalOffset(cityId) %>% 
     getHotelListLinks(cityId) %>% 
     lapply(function(url) getHotelLinksByPage(url, cityId)) %>%
     unlist()
