@@ -36,6 +36,29 @@ getTotalOffset <- function(cityId, hotelId) {
   }
 }
 
+getTotalOffsetByUrl <- function(url, is.hotel = NULL) {
+  if (is.null(is.hotel)) {stop("is.hotel is not specified")}
+  if (!is.hotel) {
+    #We check last pagination number on the page for "data-offset" property
+    offset <- url %>%
+      getNodesAttribute(xpath = "//*[@class = 'pageNum last taLnk']", attribute = "data-offset") %>%
+      as.numeric()
+    
+    #If there is no pagination, which is possible, return 30
+    return(
+      ifelse(length(offset) > 0, offset, 30)
+    )
+  } else {
+    offset <- url %>%
+      getNodesAttribute(xpath = "(//*[@class = 'pageNumbers']//a)[last()]", attribute = "data-offset") %>%
+      as.numeric()
+    
+    return(
+      ifelse(length(offset) > 0, offset, 10)
+    )
+  }
+}
+
 #TODO: Optimize nested ifs (see open Chrome tabs)
 urlConstructor <- function(cityId, hotelId = NULL, offset) {
   if (is.null(hotelId)) {
@@ -60,6 +83,17 @@ getOffsetLinks <- function(offset, cityId, hotelId = NULL) {
     #Afterwards we combine the vector of offsets into final urls
     sapply(function(x) {
       urlConstructor(cityId = cityId, hotelId = hotelId, offset = x)
+    })
+}
+
+getOffsetLinksByUrl <- function(offset, url, is.hotel = NULL) {
+  if (is.null(is.hotel)) {stop("is.hotel is not specified")}
+  step = ifelse(!is.hotel, 30, 10)
+  
+  seq(0, offset, step) %>%
+    #Afterwards we combine the vector of offsets into final urls
+    sapply(function(x) {
+      paste0(url, "-or", x)
     })
 }
 
