@@ -15,11 +15,13 @@ casper.start().thenOpen("https://www.tripadvisor.ru/Hotel_Review-g1956128-d61582
   }
 );
 
+//Expanding reviews
 casper.then(function(){
   this.click('span.taLnk.ulBlueLinks');
   this.echo('Clicked!');
 });
 
+//Closing possible popup
 casper.then(function() {
   if (this.exists('div.ui_close_x')) {
     this.click('div.ui_close_x');
@@ -29,28 +31,14 @@ casper.then(function() {
   }
 });
 
+//Check if the reviews have expanded and then get review texts and write them
 casper.then(function() {
-  do {
-    this.click('span.taLnk.ulBlueLinks');
-    this.echo('Clicked again!');
-  }
-  while(this.exists('span.taLnk.ulBlueLinks'));
-});
-
-casper.then(function() {
-  this.waitForSelector('div.expandLink', function() {
+  this.waitForSelector('span.caret-up', function() {
     var listTexts = this.getElementsInfo(x('//*[@class="innerBubble"]/div[@class="wrap"]/div[@data-prwidget-name="common_html"]/div[@class="entry"]')).map(function(obj) {
       return obj.text;
     });
-    
-    var vals = Object.keys(listTexts).map(function (key) {
-      if (Object.keys(listTexts).indexOf(key) % 2 !== 0) {
-        return listTexts[key];
-      } else {
-        return;
-      }
-    });
-    console.dir(listTexts[1]);
+    fs.write("data/dl.json", JSON.stringify(listTexts));
+    this.echo("Reviews are written!");
   }, 20000);
 });
 

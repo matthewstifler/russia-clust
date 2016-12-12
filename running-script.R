@@ -22,7 +22,13 @@ links.reviews <- lapply(links, function(city) {
             getOffsetLinksByUrl(link, is.hotel = T)
   })
 })
-Sys.time() - start
+Sys.time() - start #for debug
+
+#18582 pages to crawl! ~15 hours
+sapply(links.reviews, function(x) {sapply(x, length)}) %>% unlist %>% sum
+
+#2.
+write(toJSON(links.reviews), "data/review-links.json")
 
 #roadmap for following work:
 #1. Generate a list of all hotel review links with needed offsets of the look city[hotel[review-link-1, review-link-2, ...]]

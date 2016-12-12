@@ -21,9 +21,9 @@ getTotalOffset <- function(cityId, hotelId) {
       getNodesAttribute(xpath = "//*[@class = 'pageNum last taLnk']", attribute = "data-offset") %>%
       as.numeric()
     
-    #If there is no pagination, which is possible, return 30
+    #If there is no pagination, which is possible, return 0
     return(
-      ifelse(length(offset) > 0, offset, 30)
+      ifelse(length(offset) > 0, offset, 0)
     )
   } else {
     offset <- urlConstructor(cityId, hotelId) %>%
@@ -31,7 +31,7 @@ getTotalOffset <- function(cityId, hotelId) {
       as.numeric()
     
     return(
-      ifelse(length(offset) > 0, offset, 10)
+      ifelse(length(offset) > 0, offset, 0)
     )
   }
 }
@@ -46,7 +46,7 @@ getTotalOffsetByUrl <- function(url, is.hotel = NULL) {
     
     #If there is no pagination, which is possible, return 30
     return(
-      ifelse(length(offset) > 0, offset, 30)
+      ifelse(length(offset) > 0, offset, 0)
     )
   } else {
     offset <- url %>%
@@ -54,7 +54,7 @@ getTotalOffsetByUrl <- function(url, is.hotel = NULL) {
       as.numeric()
     
     return(
-      ifelse(length(offset) > 0, offset, 10)
+      ifelse(length(offset) > 0, offset, 0)
     )
   }
 }
