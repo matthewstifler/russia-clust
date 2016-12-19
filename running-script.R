@@ -24,15 +24,25 @@ links.reviews <- lapply(links, function(city) {
 })
 Sys.time() - start #for debug
 
-#18582 pages to crawl! ~15 hours
+#14952 pages to crawl! ~15 hours
 sapply(links.reviews, function(x) {sapply(x, length)}) %>% unlist %>% sum
 
 #2.
-write(toJSON(links.reviews), "data/review-links.json")
+index = 1;
+lapply(links.reviews, function(x) {
+  id = names(links.reviews)[index]
+  x %>%
+    unlist %>%
+    toJSON() %>% 
+    write(paste0("data/review-links-", id, ".json"))
+  
+  index <<- index + 1
+})
 
 #roadmap for following work:
 #1. Generate a list of all hotel review links with needed offsets of the look city[hotel[review-link-1, review-link-2, ...]]
-#2. Store it into a JSON
+#2. Store it into a JSON, for each city, so that Casper script doesn't have to iterate over a bunch of objects, which is just silly
+#because we don't really care for the hotels, so the model city - links is just fine
 #3. Run the Casper script with node so that it
 # 3.1 Loads JSON
 # 3.2 Opens each link
